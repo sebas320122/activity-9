@@ -23,3 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 Route::get('/landingpage', [App\Http\Controllers\LandingpageController::class, 'index'])->name('landingpage');
+
+Auth::routes(['verify' => true]); 
+Route::get('/register/verify/{code}', 'App\Http\Controllers\GuestController@verify'); 

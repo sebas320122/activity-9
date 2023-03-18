@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Notifications\Alerta;
 
 class LoginController extends Controller
 {
@@ -46,5 +47,10 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ])->redirectTo('/landingpage');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $user->notify(new Alerta($user));
     }
 }
